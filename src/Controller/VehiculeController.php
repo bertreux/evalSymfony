@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Membre;
 use App\Entity\Vehicule;
 use App\Form\InscriptionType;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,10 +45,8 @@ class VehiculeController extends EvalAbstractController
                 );
 
                 $this->security->login($membre);
-                dump($this->getUser());
 
                 $this->security->logout(false);
-                dd($this->getUser());
 
                 $this->membreRepository->add($membre, true);
             }
