@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation{% endblock %}
+
+{% block body %}
+    <h1>Réservation</h1>
+    <p>{{ vehicules.titre }}</p>
+    <p>{{ vehicules.marque }}</p>
+    <p>{{ vehicules.description }}</p>
+    <p>{{ vehicules.modele }}</p>
+    <p>{{ vehicules.photo }}</p>
+    <p>{{ vehicules.prixJournalier }}</p>
+    <p>{{ dateDeb is defined ? dateDeb|date('Y/m/d H:i') : '' }}</p>
+    <p>{{ dateFin is defined ? dateFin|date('Y/m/d H:i') : '' }}</p>
+    <hr>
+    {{ form(form) }}
+{% endblock %}
