@@ -35,6 +35,9 @@ class Vehicule
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_enregistrement = null;
 
+    #[ORM\ManyToOne(inversedBy: 'vehicule')]
+    private ?Commande $commande = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Vehicule
     public function setDateEnregistrement(\DateTimeInterface $date_enregistrement): static
     {
         $this->date_enregistrement = $date_enregistrement;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): static
+    {
+        $this->commande = $commande;
 
         return $this;
     }
