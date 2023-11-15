@@ -25,17 +25,11 @@ class Commande
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_enregistrement = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?Membre $membre = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?Vehicule $vehicule = null;
-
-    public function __construct()
-    {
-        $this->membre = new ArrayCollection();
-        $this->vehicule = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {

@@ -12,6 +12,11 @@
     <p>{{ vehicules.prixJournalier }}</p>
     <p>{{ dateDeb is defined ? dateDeb|date('Y/m/d H:i') : '' }}</p>
     <p>{{ dateFin is defined ? dateFin|date('Y/m/d H:i') : '' }}</p>
-    <hr>
-    {{ form(form) }}
+    {% if app.user == null %}
+        <hr>
+        <a href="{{path('app_login') }}" class="btn btn-primary">Connexion</a>
+        <a href="{{ path('app_insription') }}" class="btn btn-primary">Inscription</a>
+    {% else %}
+        <a href="{{ path('app_reservation_create', {'id': vehicules.id}) }}" class="btn btn-success">Réserver</a>
+    {% endif %}
 {% endblock %}

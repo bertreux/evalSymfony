@@ -3,18 +3,20 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <p>Accueil</p>
+    <h1 class="mb-5">Accueil</h1>
     {{ form_start(form) }}
     <div class="row">
+        <div class="col-2"></div>
         <div class="col-3 champFormulaire">
             {{ form_row(form.date_heur_depart) }}
         </div>
         <div class="col-3 champFormulaire">
             {{ form_row(form.date_heur_fin) }}
         </div>
-        <div class="col-3 champFormulaire">
+        <div class="col-2 champFormulaire">
             {{ form_row(form.submit) }}
         </div>
+        <div class="col-2"></div>
     </div>
     {{ form_end(form) }}
 {% endblock %}

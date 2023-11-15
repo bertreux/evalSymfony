@@ -13,6 +13,29 @@
         {% endblock %}
     </head>
     <body>
+    <header class="bg-primary">
+        <nav class="container navbar navbar-expand navbar-dark">
+            <ul class="navbar-nav">
+                <li class="navbar-item">
+                    <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
+                </li>
+                {% if app.user == null %}
+                    <li class="navbar-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="{{ path('app_insription') }}">Inscription</a>
+                    </li>
+                {% else %}
+                    <li class="navbar-item">
+                        <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="mt-3 ms-3 me-3">
         {% block body %}{% endblock %}
+    </div>
     </body>
 </html>

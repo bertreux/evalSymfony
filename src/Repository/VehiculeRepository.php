@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Commande;
 use App\Entity\Vehicule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,4 +40,17 @@ class VehiculeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findAllVehiculeFree($date_deb, $date_fin){
+        $queryBuilder = $this->createQueryBuilder('v');
+
+        $queryBuilder
+            ->leftJoin('v.commandes', 'c') // Assurez-vous que le nom de la relation est correct
+            ->andWhere('c.id IS NULL OR (:dateDebut NOT BETWEEN c.date_heur_depart AND c.date_heur_fin AND :dateFin NOT BETWEEN c.date_heur_depart AND c.date_heur_fin)')
+            ->setParameter('dateDebut', $date_deb)
+            ->setParameter('dateFin', $date_fin);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 }

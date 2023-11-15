@@ -3,11 +3,12 @@
 {% block title %}Vehicule{% endblock %}
 
 {% block body %}
-    <p>Vehicules disponibles</p>
+    <h1>Vehicules disponibles</h1>
     {% for vehicule in vehicules %}
         <h2>{{ vehicule.titre }}</h2>
         <p>{{ vehicule.description }}</p>
         <p>{{ vehicule.prixJournalier }}€ / {{ vehicule.marque }}</p>
         <a href="{{ path('app_reservation', {'id': vehicule.id}) }}" class="btn btn-success">Réserver</a>
+        <hr>
     {% endfor %}
 {% endblock %}
