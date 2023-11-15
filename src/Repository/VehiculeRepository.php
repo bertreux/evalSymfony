@@ -45,8 +45,11 @@ class VehiculeRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('v');
 
         $queryBuilder
-            ->leftJoin('v.commandes', 'c') // Assurez-vous que le nom de la relation est correct
-            ->andWhere('c.id IS NULL OR (:dateDebut NOT BETWEEN c.date_heur_depart AND c.date_heur_fin AND :dateFin NOT BETWEEN c.date_heur_depart AND c.date_heur_fin)')
+            ->leftJoin('v.commandes', 'c')
+            ->andWhere('c.id IS NULL OR (:dateDebut < c.date_heur_depart AND 
+            :dateFin < c.date_heur_depart) 
+            OR (:dateDebut > c.date_heur_fin AND 
+            :dateFin > c.date_heur_fin)')
             ->setParameter('dateDebut', $date_deb)
             ->setParameter('dateFin', $date_fin);
 

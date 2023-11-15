@@ -11,4 +11,7 @@
         <a href="{{ path('app_reservation', {'id': vehicule.id}) }}" class="btn btn-success">Réserver</a>
         <hr>
     {% endfor %}
+    {% if vehicules is empty %}
+        <p>Aucun véhicule n'est disponible pour vos dates de réservations</p>
+    {% endif %}
 {% endblock %}
