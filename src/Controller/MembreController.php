@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/membre')]
 class MembreController extends EvalAbstractController
 {
-    #[Route('/', name: 'app_membre_index', methods: ['GET'])]
+    #[Route('/admin', name: 'app_membre_index', methods: ['GET'])]
     public function index(MembreRepository $membreRepository): Response
     {
         return $this->render('membre/index.html.twig', [
@@ -21,7 +21,7 @@ class MembreController extends EvalAbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_membre_new', methods: ['GET', 'POST'])]
+    #[Route('/admin/new', name: 'app_membre_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $membre = new Membre();
@@ -44,7 +44,7 @@ class MembreController extends EvalAbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_membre_show', methods: ['GET'])]
+    #[Route('/admin/{id}', name: 'app_membre_show', methods: ['GET'])]
     public function show(Membre $membre): Response
     {
         return $this->render('membre/show.html.twig', [
@@ -52,7 +52,7 @@ class MembreController extends EvalAbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_membre_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/{id}/edit', name: 'app_membre_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Membre $membre, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MembreType::class, $membre);
@@ -70,7 +70,7 @@ class MembreController extends EvalAbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_membre_delete', methods: ['POST'])]
+    #[Route('/admin/{id}', name: 'app_membre_delete', methods: ['POST'])]
     public function delete(Request $request, Membre $membre, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$membre->getId(), $request->request->get('_token'))) {

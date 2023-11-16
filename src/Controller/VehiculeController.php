@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/vehicule')]
 class VehiculeController extends EvalAbstractController
 {
-    #[Route('/', name: 'app_vehicule_index', methods: ['GET'])]
+    #[Route('/admin', name: 'app_vehicule_index', methods: ['GET'])]
     public function index(VehiculeRepository $vehiculeRepository): Response
     {
         return $this->render('vehicule/index.html.twig', [
@@ -25,7 +25,7 @@ class VehiculeController extends EvalAbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_vehicule_new', methods: ['GET', 'POST'])]
+    #[Route('/admin/new', name: 'app_vehicule_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $vehicule = new Vehicule();
@@ -59,7 +59,7 @@ class VehiculeController extends EvalAbstractController
         ]);
     }
 
-    #[Route('/{id}/show', name: 'app_vehicule_show', methods: ['GET'])]
+    #[Route('/admin/{id}/show', name: 'app_vehicule_show', methods: ['GET'])]
     public function show(Vehicule $vehicule): Response
     {
         return $this->render('vehicule/show.html.twig', [
@@ -67,7 +67,7 @@ class VehiculeController extends EvalAbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_vehicule_edit', methods: ['GET', 'POST'])]
+    #[Route('/admin/{id}/edit', name: 'app_vehicule_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Vehicule $vehicule, EntityManagerInterface $entityManager): Response
     {
         $oldFile = $vehicule->getPhoto();
@@ -100,7 +100,7 @@ class VehiculeController extends EvalAbstractController
         ]);
     }
 
-    #[Route('/{id}/show', name: 'app_vehicule_delete', methods: ['POST'])]
+    #[Route('/admin/{id}/show', name: 'app_vehicule_delete', methods: ['POST'])]
     public function delete(Request $request, Vehicule $vehicule, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$vehicule->getId(), $request->request->get('_token'))) {
