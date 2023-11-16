@@ -39,7 +39,7 @@ class VehiculeRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllVehiculeFree($date_deb, $date_fin){
+    public function findAllVehiculeFreeQuery($date_deb, $date_fin){
         $queryBuilder = $this->createQueryBuilder('v');
 
         $queryBuilder
@@ -51,18 +51,17 @@ class VehiculeRepository extends ServiceEntityRepository
             ->setParameter('dateDebut', $date_deb)
             ->setParameter('dateFin', $date_fin);
 
+        return $queryBuilder;
+    }
+
+    public function findAllVehiculeFree($date_deb, $date_fin){
+        $queryBuilder = $this->findAllVehiculeFreeQuery($date_deb, $date_fin);
+
         return $queryBuilder->getQuery()->getResult();
     }
 
     public function findVehiculeByDatesAndFiltre($data, $date_deb, $date_fin){
-        $queryBuilder = $this->createQueryBuilder('v')
-            ->leftJoin('v.commandes', 'c')
-            ->andWhere('c.id IS NULL OR (:dateDebut < c.date_heur_depart AND 
-            :dateFin < c.date_heur_depart) 
-            OR (:dateDebut > c.date_heur_fin AND 
-            :dateFin > c.date_heur_fin)')
-            ->setParameter('dateDebut', $date_deb)
-            ->setParameter('dateFin', $date_fin);
+        $queryBuilder = $this->findAllVehiculeFreeQuery($date_deb, $date_fin);
         foreach ($data as $key => $value){
             if(str_starts_with($key, 'order')){
                 $key = str_replace('order', '', $key);
