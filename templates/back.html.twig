@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-2" id="menuBack">
+            {{ include('sidebar/backoffice.html.twig') }}
+        </div>
+        <div class="col-10">
+            {% block bodyback %}{% endblock %}
+        </div>
+    </div>
+
+
+{% endblock %}

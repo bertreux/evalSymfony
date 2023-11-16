@@ -1,0 +1,39 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Commande index{% endblock %}
+
+{% block bodyback %}
+    <h1>Commande index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_heur_depart</th>
+                <th>Date_heur_fin</th>
+                <th>Date_enregistrement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.id }}</td>
+                <td>{{ commande.dateHeurDepart ? commande.dateHeurDepart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ commande.dateHeurFin ? commande.dateHeurFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ commande.dateEnregistrement ? commande.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}" class="btn btn-info">Voire</a>
+                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="btn btn-warning">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun résultat</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_commande_new') }}" class="btn btn-success">Créer</a>
+{% endblock %}

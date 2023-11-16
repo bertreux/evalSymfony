@@ -27,14 +27,19 @@
                         <a class="nav-link" href="{{ path('app_insription') }}">Inscription</a>
                     </li>
                 {% else %}
-                    <li class="navbar-item">
+                    {% if app.user.statut == 0 %}
+                        <li class="navbar-item">
+                            <a class="nav-link" href="{{ path('app_vehicule_index') }}">Gestion</a>
+                        </li>
+                    {% endif %}
+                    <li class="navbar-item justify-content-end">
                         <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
                     </li>
                 {% endif %}
             </ul>
         </nav>
     </header>
-    <div class="mt-3 ms-3 me-3">
+    <div class="mt-3 ms-3 me-3 mb-3">
         {% block body %}{% endblock %}
     </div>
     </body>

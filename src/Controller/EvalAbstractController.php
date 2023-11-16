@@ -16,6 +16,10 @@ class EvalAbstractController extends AbstractController
     protected $commandeRepository;
     protected $session;
     protected $security;
+    protected $roleValueAndLibel = [
+        'Admin' => 0,
+        'Membre' => 1
+    ];
 
     public function __construct(MembreRepository   $membreRepository,
                                 VehiculeRepository $vehiculeRepository,

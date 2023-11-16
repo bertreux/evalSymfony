@@ -47,9 +47,19 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Commande::class)]
     private Collection $commandes;
 
+    protected $roleValueAndLibel = [
+        'Admin' => 0,
+        'Membre' => 1
+    ];
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->email;
     }
 
     public function getId(): ?int
@@ -127,6 +137,20 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         $this->civilite = $civilite;
 
         return $this;
+    }
+
+    public function getLibelStatusForForm()
+    {
+        return $this->roleValueAndLibel;
+    }
+
+    public function getLibelStatusForTableau()
+    {
+        foreach ($this->roleValueAndLibel as $key => $value){
+            if($value == $this->statut){
+                return $key;
+            }
+        }
     }
 
     public function getStatut(): ?int

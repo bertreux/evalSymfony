@@ -19,7 +19,7 @@ class HomeController extends EvalAbstractController
                 $data = $form->getData();
                 $this->session->set('date_deb', $data['date_heur_depart']);
                 $this->session->set('date_fin', $data['date_heur_fin']);
-                return $this->redirectToRoute('app_vehicule');
+                return $this->redirectToRoute('app_vehicule_search');
             }
         }
         return $this->render('home/index.html.twig', [

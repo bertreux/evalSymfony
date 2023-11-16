@@ -5,3 +5,7 @@
 #accueil_submit{
     margin-top: 20%
 }
+
+#menuBack{
+    border-right: 1px solid black;
+}
