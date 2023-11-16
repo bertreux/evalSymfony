@@ -23,7 +23,7 @@ class AccueilType extends AbstractType
                 'date_widget' => 'single_text'
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Valider un véhicule',
+                'label' => 'Valider la recherche',
                 'validate' => false,
             ])
         ;

@@ -64,7 +64,10 @@ class VehiculeRepository extends ServiceEntityRepository
             ->setParameter('dateDebut', $date_deb)
             ->setParameter('dateFin', $date_fin);
         foreach ($data as $key => $value){
-            if($value != null){
+            if(str_starts_with($key, 'order')){
+                $key = str_replace('order', '', $key);
+                $queryBuilder->orderBy('v.'.$key, $value);
+            } else if($value != null){
                 $queryBuilder->andWhere('upper(v.'.$key.') LIKE upper(:'.$key.')')
                     ->setParameter(':'.$key, '%' . $value . '%');
             }

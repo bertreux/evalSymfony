@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Vehicule;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -34,6 +35,15 @@ class FiltreSearchType extends AbstractType
             ])
             ->add('prix_journalier', NumberType::class, [
                 'label' => 'Le prix journalié est de ',
+                'required' => false
+            ])
+            ->add('orderprix_journalier', ChoiceType::class, [
+                'label' => 'Trier les résultats avec les prix : ',
+                'placeholder' => 'Ne pas trier',
+                'choices' => [
+                    'Ascendant' => 'ASC',
+                    'Déscendant' => 'DESC'
+                ],
                 'required' => false
             ])
             ->add('submit', SubmitType::class, [
