@@ -8,6 +8,7 @@ use App\Repository\MembreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/membre')]
@@ -22,7 +23,8 @@ class MembreController extends EvalAbstractController
     }
 
     #[Route('/admin/new', name: 'app_membre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,
+                        UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $membre = new Membre();
         $form = $this->createForm(MembreType::class, $membre, [
@@ -34,6 +36,12 @@ class MembreController extends EvalAbstractController
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $membre->setDateEnregistrement(new \DateTime('now'));
+                $membre->setMdp(
+                    $userPasswordHasher->hashPassword(
+                        $membre,
+                        $membre->getMdp()
+                    )
+                );
                 $entityManager->persist($membre);
                 $entityManager->flush();
 
@@ -58,15 +66,23 @@ class MembreController extends EvalAbstractController
     }
 
     #[Route('/admin/{id}/edit', name: 'app_membre_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Membre $membre, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Membre $membre, EntityManagerInterface $entityManager,
+                         UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(MembreType::class, $membre, [
+            'statusChoice' => (new Membre())->getLibelStatusForForm(),
             'labelSubmit' => 'Modifier'
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
             if($form->isValid()) {
+                $membre->setMdp(
+                    $userPasswordHasher->hashPassword(
+                        $membre,
+                        $membre->getMdp()
+                    )
+                );
                 $entityManager->flush();
 
                 return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);

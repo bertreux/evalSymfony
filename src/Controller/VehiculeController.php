@@ -35,11 +35,13 @@ class VehiculeController extends EvalAbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
-            $allowedExtensions = ['jpg', 'jpeg', 'png'];
-            $file = $form['photo']->getData();
-            $originalExtension = $file->getClientOriginalExtension();
-            if (!in_array($originalExtension, $allowedExtensions)) {
-                $form->get('photo')->addError(new FormError("L'image doit avoir comme extension jpg, png ou jpeg"));
+            if($form['photo']->getData() != null){
+                $allowedExtensions = ['jpg', 'jpeg', 'png'];
+                $file = $form['photo']->getData();
+                $originalExtension = $file->getClientOriginalExtension();
+                if (!in_array($originalExtension, $allowedExtensions)) {
+                    $form->get('photo')->addError(new FormError("L'image doit avoir comme extension jpg, png ou jpeg"));
+                }
             }
             if ($form->isValid()) {;
                 $fileSystem = new Filesystem();
@@ -81,14 +83,19 @@ class VehiculeController extends EvalAbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
-            $allowedExtensions = ['jpg', 'jpeg', 'png'];
-            $file = $form['url']->getData();
-            $originalExtension = $file->getClientOriginalExtension();
-            if (!in_array($originalExtension, $allowedExtensions)) {
-                $form->get('url')->addError(new FormError("L'image doit avoir comme extension jpg, png ou jpeg"));
+            if($form['photo']->getData() != null) {
+                $allowedExtensions = ['jpg', 'jpeg', 'png'];
+                $file = $form['photo']->getData();
+                $originalExtension = $file->getClientOriginalExtension();
+                if (!in_array($originalExtension, $allowedExtensions)) {
+                    $form->get('photo')->addError(new FormError("L'image doit avoir comme extension jpg, png ou jpeg"));
+                }
             }
             if ($form->isValid()) {
-                unlink($oldFile);
+                try {
+                    unlink($oldFile);
+                } catch (\Exception $e) {
+                }
                 $fileSystem = new Filesystem();
                 $file = $form['photo']->getData();
                 $fileName = rand(1, 999999999).'.'.$file->getClientOriginalExtension();
@@ -112,7 +119,10 @@ class VehiculeController extends EvalAbstractController
     public function delete(Request $request, Vehicule $vehicule, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$vehicule->getId(), $request->request->get('_token'))) {
-            unlink($vehicule->getPhoto());
+            try {
+                unlink($vehicule->getPhoto());
+            } catch (\Exception $e) {
+            }
             $entityManager->remove($vehicule);
             $entityManager->flush();
         }

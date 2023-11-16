@@ -17,6 +17,8 @@
                 <th>Date_heur_depart</th>
                 <th>Date_heur_fin</th>
                 <th>Date_enregistrement</th>
+                <th>Membre</th>
+                <th>Vehicule</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,6 +29,8 @@
                 <td>{{ commande.dateHeurDepart ? commande.dateHeurDepart|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ commande.dateHeurFin ? commande.dateHeurFin|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ commande.dateEnregistrement ? commande.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
+                <td><a href="{{ path('app_membre_edit', {'id': commande.membre.id}) }}">{{ commande.membre }}</a></td>
+                <td><a href="{{ path('app_vehicule_index', {'id': commande.vehicule.id}) }}">{{ commande.vehicule }}</a></td>
                 <td>
                     <a href="{{ path('app_commande_show', {'id': commande.id}) }}" class="btn btn-info">Voire</a>
                     <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="btn btn-warning">Modifier</a>
@@ -34,7 +38,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">Aucun résultat</td>
+                <td colspan="7">Aucun résultat</td>
             </tr>
         {% endfor %}
         </tbody>

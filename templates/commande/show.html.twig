@@ -23,10 +23,18 @@
                 <th>Date_enregistrement</th>
                 <td>{{ commande.dateEnregistrement ? commande.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>Membre</th>
+                <td><a href="{{ path('app_membre_edit', {'id': commande.membre.id}) }}">{{ commande.membre }}</a></td>
+            </tr>
+            <tr>
+                <th>Véhicule</th>
+                <td><a href="{{ path('app_vehicule_index', {'id': commande.vehicule.id}) }}">{{ commande.vehicule }}</a></td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_commande_index') }}" class="btn btn-secondary">Retour a la liste</a>
+    <a href="{{ path('app_commande_index') }}" class="btn btn-secondary btnRetour">Retour a la liste</a>
 
     <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="btn btn-warning">Modifier</a>
 
