@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VehiculeRepository::class)]
 class Vehicule
@@ -17,21 +18,55 @@ class Vehicule
     private ?int $id = null;
 
     #[ORM\Column(length: 200)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 3,
+        max : 200,
+        minMessage:"Le titre doit contenir au minimum {{ limit }} caractères",
+        maxMessage:"Le titre doit contenir au maximum {{ limit }} caractères",
+    )]
     private ?string $titre = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 3,
+        max : 50,
+        minMessage:"La marque doit contenir au minimum {{ limit }} caractères",
+        maxMessage:"La marque doit contenir au maximum {{ limit }} caractères",
+    )]
     private ?string $marque = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 3,
+        max : 50,
+        minMessage:"Le modele doit contenir au minimum {{ limit }} caractères",
+        maxMessage:"Le modele doit contenir au maximum {{ limit }} caractères",
+    )]
     private ?string $modele = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 3,
+        minMessage:"La description doit contenir au minimum {{ limit }} caractères",
+    )]
     private ?string $description = null;
 
     #[ORM\Column(length: 200)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 3,
+        max : 200,
+        minMessage:"Le chemin vers la photo doit contenir au minimum {{ limit }} caractères",
+        maxMessage:"Le chemin vers la photo doit contenir au maximum {{ limit }} caractères",
+    )]
     private ?string $photo = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
     private ?int $prix_journalier = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

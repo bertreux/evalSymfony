@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 #[ORM\Entity(repositoryClass: MembreRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Il y a un déjà un compte crée avec cet email')]
@@ -21,24 +23,65 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 3,
+        max : 20,
+        minMessage:"Le pseudo doit contenir au minimum {{ limit }} caractères",
+        maxMessage:"Le pseudo doit contenir au maximum {{ limit }} caractères",
+    )]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 60)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 5,
+        max : 60,
+        minMessage:"Le mot de passe doit contenir au minimum {{ limit }} caractères",
+        maxMessage:"Le mot de passe doit contenir au maximum {{ limit }} caractères",
+    )]
     private ?string $mdp = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 3,
+        max : 20,
+        minMessage:"Le nom doit contenir au minimum {{ limit }} caractères",
+        maxMessage:"Le nom doit contenir au maximum {{ limit }} caractères",
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 3,
+        max : 20,
+        minMessage:"Le prenom doit contenir au minimum {{ limit }} caractères",
+        maxMessage:"Le prenom doit contenir au maximum {{ limit }} caractères",
+    )]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(
+        min : 3,
+        max : 50,
+        minMessage:"Le mail doit contenir au minimum {{ limit }} caractères",
+        maxMessage:"Le mail doit contenir au maximum {{ limit }} caractères",
+    )]
     private ?string $email = null;
 
     #[ORM\Column(length: 1)]
+    #[Assert\NotBlank()]
+    #[Assert\Choice(
+        choices : ['m', 'f'],
+        message : "choisir une civilité valide ( m ou f )"
+    )]
     private ?string $civilite = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
     private ?int $statut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -60,6 +103,14 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->email;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata): void
+    {
+        $metadata->addGetterConstraint('statut', new Assert\Choice([
+            'choices' => (new Membre)->getChoiceStatut(),
+            'message' => "choisir un statut valide"
+        ]));
     }
 
     public function getId(): ?int
@@ -151,6 +202,15 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
                 return $key;
             }
         }
+        return '';
+    }
+
+    public function getChoiceStatut(){
+        $res = [];
+        foreach ($this->roleValueAndLibel as $key => $value){
+            array_push($res, $value);
+        }
+        return $res;
     }
 
     public function getStatut(): ?int
