@@ -36,10 +36,6 @@
                     <a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="btn btn-warning">Modifier</a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">Aucun résultat</td>
-            </tr>
         {% endfor %}
         </tbody>
     </table>

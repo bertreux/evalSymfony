@@ -20,16 +20,13 @@ class Commande
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(
-        message: "La date de début de réservation ne peut pas être vide"
-    )]
-    #[Assert\Date(
-        message: "La date de début de réservation ne peut pas être vide"
+        message: "La date de début de réservation ne peut pas être vide",allowNull: false
     )]
     private ?\DateTimeInterface $date_heur_depart = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(
-        message: "La date de fin de réservation ne peut pas être vide"
+        message: "La date de fin de réservation ne peut pas être vide",allowNull: false
     )]
     private ?\DateTimeInterface $date_heur_fin = null;
 
@@ -37,9 +34,17 @@ class Commande
     private ?\DateTimeInterface $date_enregistrement = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
+    #[Assert\NotBlank(
+        message: "Vous devez choisir un membre",allowNull: false
+    )]
     private ?Membre $membre = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
+    #[Assert\NotBlank(
+        message: "Vous devez choisir un vehicule",allowNull: false
+    )]
     private ?Vehicule $vehicule = null;
 
     public function getId(): ?int

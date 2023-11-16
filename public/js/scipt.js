@@ -1,3 +1,7 @@
 $(document).ready( function () {
-    $('#myTable').DataTable();
+    $('#myTable').DataTable({
+        "oLanguage": {
+            "sEmptyTable":     "Aucun résultat"
+        }
+    });
 } );

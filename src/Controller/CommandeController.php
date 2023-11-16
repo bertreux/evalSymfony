@@ -32,7 +32,7 @@ class CommandeController extends EvalAbstractController
 
         if ($form->isSubmitted()) {
             if($form->isValid()) {
-                $commande->setDateEnregistrement('now');
+                $commande->setDateEnregistrement(new \DateTime('now'));
                 $entityManager->persist($commande);
                 $entityManager->flush();
 

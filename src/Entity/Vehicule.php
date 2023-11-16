@@ -18,7 +18,9 @@ class Vehicule
     private ?int $id = null;
 
     #[ORM\Column(length: 200)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "Le titre ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 3,
         max : 200,
@@ -28,7 +30,9 @@ class Vehicule
     private ?string $titre = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "La marque ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 3,
         max : 50,
@@ -38,7 +42,9 @@ class Vehicule
     private ?string $marque = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "Le modele ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 3,
         max : 50,
@@ -48,7 +54,9 @@ class Vehicule
     private ?string $modele = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "La description ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 3,
         minMessage:"La description doit contenir au minimum {{ limit }} caractères",
@@ -56,7 +64,9 @@ class Vehicule
     private ?string $description = null;
 
     #[ORM\Column(length: 200)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "La photo ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 3,
         max : 200,
@@ -66,13 +76,16 @@ class Vehicule
     private ?string $photo = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "Le prix journalier ne peut pas etre vide",allowNull: false
+    )]
     private ?int $prix_journalier = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_enregistrement = null;
 
     #[ORM\OneToMany(mappedBy: 'vehicule', targetEntity: Commande::class)]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private Collection $commandes;
 
     public function __construct()

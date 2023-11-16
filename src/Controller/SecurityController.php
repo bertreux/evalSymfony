@@ -17,6 +17,10 @@ class SecurityController extends EvalAbstractController
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
+        if(!is_null($error)){
+            $error = "Email et/ou mot de passe invalide";
+            $this->addFlash('danger', $error);
+        }
 
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();

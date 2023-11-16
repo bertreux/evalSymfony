@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,7 +24,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "Le pseudo ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 3,
         max : 20,
@@ -33,7 +36,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 60)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "Le mot de passe ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 5,
         max : 60,
@@ -43,7 +48,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $mdp = null;
 
     #[ORM\Column(length: 20)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "Le nom ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 3,
         max : 20,
@@ -53,7 +60,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $nom = null;
 
     #[ORM\Column(length: 20)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "Le prenom ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 3,
         max : 20,
@@ -63,7 +72,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $prenom = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "L'email ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Length(
         min : 3,
         max : 50,
@@ -73,7 +84,9 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column(length: 1)]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "La civilité ne peut pas etre vide",allowNull: false
+    )]
     #[Assert\Choice(
         choices : ['m', 'f'],
         message : "choisir une civilité valide ( m ou f )"
@@ -81,13 +94,16 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $civilite = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank()]
+    #[Assert\NotBlank(
+        message: "Le statut ne peut pas etre vide",allowNull: false
+    )]
     private ?int $statut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date_enregistrement = null;
 
     #[ORM\OneToMany(mappedBy: 'membre', targetEntity: Commande::class)]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private Collection $commandes;
 
     protected $roleValueAndLibel = [
