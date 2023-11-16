@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
 use App\Form\AccueilType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,14 +14,24 @@ class HomeController extends EvalAbstractController
     #[Route('/', name: 'homepage')]
     public function index(Request $request): Response
     {
-        $form = $this->createForm(AccueilType::class, null, []);
+        $commande = new Commande();
+        $form = $this->createForm(AccueilType::class, $commande, []);
         $form->handleRequest($request);
         if($form->isSubmitted()){
+            if($commande->getDateHeurFin() != null && $commande->getDateHeurDepart() != null &&
+                $commande->getDateHeurFin() < $commande->getDateHeurDepart()){
+                $form->get('date_heur_fin')->addError(new FormError('La date de fin doit être supérieur a la date de début'));
+            }
             if($form->isValid()){
-                $data = $form->getData();
-                $this->session->set('date_deb', $data['date_heur_depart']);
-                $this->session->set('date_fin', $data['date_heur_fin']);
+                $this->session->set('date_deb', $commande->getDateHeurDepart());
+                $this->session->set('date_fin', $commande->getDateHeurFin());
                 return $this->redirectToRoute('app_vehicule_search');
+            }else{
+                $message = "";
+                foreach ($form->getErrors(true) as $key => $value){
+                    $message.=$value->getMessage()."<br>";
+                }
+                $this->addFlash('danger', $message);
             }
         }
         return $this->render('home/index.html.twig', [

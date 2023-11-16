@@ -27,7 +27,6 @@ class MembreType extends AbstractType
             ->add('statut', ChoiceType::class, [
                 'choices' => $options['statusChoice']
             ])
-            ->add('date_enregistrement')
         ;
     }
 

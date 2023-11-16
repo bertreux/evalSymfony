@@ -6,9 +6,10 @@
     <h1>Vehicules disponibles</h1>
     {% for vehicule in vehicules %}
         <h2>{{ vehicule.titre }}</h2>
+        <img class="imageIndex" src="{{ asset( vehicule.photo ) }}" alt="image voiture">
         <p>{{ vehicule.description }}</p>
         <p>{{ vehicule.prixJournalier }}€ / {{ vehicule.marque }}</p>
-        <a href="{{ path('app_reservation', {'id': vehicule.id}) }}" class="btn btn-success">Réserver</a>
+        <a href="{{ path('app_reservation', {'id': vehicule.id}) }}" class="btn btn-success">Voire l'offre</a>
         <hr>
     {% endfor %}
     {% if vehicules is empty %}

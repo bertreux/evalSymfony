@@ -14,7 +14,6 @@ class CommandeType extends AbstractType
         $builder
             ->add('date_heur_depart')
             ->add('date_heur_fin')
-            ->add('date_enregistrement')
             ->add('membre')
             ->add('vehicule')
         ;

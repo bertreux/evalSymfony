@@ -1,5 +1,18 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .col-2{
+            width: 11% !important;
+        }
+        .col-10{
+            width: 89% !important;
+        }
+    </style>
+
+{% endblock %}
+
 {% block body %}
 
     <div class="row">

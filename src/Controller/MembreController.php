@@ -6,7 +6,6 @@ use App\Entity\Membre;
 use App\Form\MembreType;
 use App\Repository\MembreRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,6 +31,7 @@ class MembreController extends EvalAbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $membre->setDateEnregistrement(new \DateTime('now'));
             $entityManager->persist($membre);
             $entityManager->flush();
 

@@ -2,10 +2,15 @@
 
 {% block title %}Membre index{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/scipt.js') }}"></script>
+{% endblock %}
+
 {% block bodyback %}
     <h1>Membre index</h1>
 
-    <table class="table">
+    <table class="table table-striped" id="myTable">
         <thead>
             <tr>
                 <th>Id</th>

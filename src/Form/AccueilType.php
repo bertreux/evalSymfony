@@ -23,7 +23,8 @@ class AccueilType extends AbstractType
                 'date_widget' => 'single_text'
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Valider un véhicule'
+                'label' => 'Valider un véhicule',
+                'validate' => false,
             ])
         ;
     }
@@ -31,8 +32,7 @@ class AccueilType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            //'data_class' => Commande::class,
-            'data_class' => null,
+            'data_class' => Commande::class,
         ]);
     }
 }

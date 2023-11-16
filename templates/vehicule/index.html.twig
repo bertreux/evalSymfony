@@ -2,10 +2,15 @@
 
 {% block title %}Vehicule index{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/scipt.js') }}"></script>
+{% endblock %}
+
 {% block bodyback %}
     <h1>Vehicule index</h1>
 
-    <table class="table">
+    <table class="table table-striped" id="myTable">
         <thead>
             <tr>
                 <th>Id</th>
@@ -13,7 +18,7 @@
                 <th>Marque</th>
                 <th>Modele</th>
                 <th>Description</th>
-                <th>Photo</th>
+                <th class="imageCollumn">Photo</th>
                 <th>Prix_journalier</th>
                 <th>Date_enregistrement</th>
                 <th>actions</th>
@@ -27,7 +32,7 @@
                 <td>{{ vehicule.marque }}</td>
                 <td>{{ vehicule.modele }}</td>
                 <td>{{ vehicule.description }}</td>
-                <td>{{ vehicule.photo }}</td>
+                <td><img class="imageIndex" src="{{ asset( vehicule.photo ) }}"></td>
                 <td>{{ vehicule.prixJournalier }}</td>
                 <td>{{ vehicule.dateEnregistrement ? vehicule.dateEnregistrement|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
