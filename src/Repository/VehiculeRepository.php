@@ -54,4 +54,22 @@ class VehiculeRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function findVehiculeByDatesAndFiltre($data, $date_deb, $date_fin){
+        $queryBuilder = $this->createQueryBuilder('v')
+            ->leftJoin('v.commandes', 'c')
+            ->andWhere('c.id IS NULL OR (:dateDebut < c.date_heur_depart AND 
+            :dateFin < c.date_heur_depart) 
+            OR (:dateDebut > c.date_heur_fin AND 
+            :dateFin > c.date_heur_fin)')
+            ->setParameter('dateDebut', $date_deb)
+            ->setParameter('dateFin', $date_fin);
+        foreach ($data as $key => $value){
+            if($value != null){
+                $queryBuilder->andWhere('upper(v.'.$key.') LIKE upper(:'.$key.')')
+                    ->setParameter(':'.$key, '%' . $value . '%');
+            }
+        }
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 }

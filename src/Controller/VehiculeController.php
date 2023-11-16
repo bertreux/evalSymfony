@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Entity\Vehicule;
+use App\Form\FiltreSearchType;
 use App\Form\VehiculeType;
 use App\Repository\VehiculeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -112,10 +113,36 @@ class VehiculeController extends EvalAbstractController
     }
 
     #[Route('/search', name: 'app_vehicule_search')]
-    public function search(): Response
+    public function search(Request $request): Response
     {
-        $vehicule = $this->vehiculeRepository->findAllVehiculeFree($this->session->get('date_deb'), $this->session->get('date_fin'));
+        $form = $this->createForm(FiltreSearchType::class, null, []);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            if($form->isValid()){
+                $data = $form->getData();
+                if($form->get('reinitialiser')->isClicked()){
+                    foreach ($data as $key => $value){
+                        $data[$key] = null;
+                    }
+                    $form = $this->createForm(FiltreSearchType::class, null, [])->createView();
+                }
+                $fitreEmpty = true;
+                foreach($data as $key => $value){
+                    if($value != null){
+                        $fitreEmpty = false;
+                        break;
+                    }
+                }
+                if($fitreEmpty == false){
+                    $vehicule = $this->vehiculeRepository->findVehiculeByDatesAndFiltre($data, $this->session->get('date_deb'), $this->session->get('date_fin'));
+                }
+            }
+        }
+        if(!isset($vehicule)){
+            $vehicule = $this->vehiculeRepository->findAllVehiculeFree($this->session->get('date_deb'), $this->session->get('date_fin'));
+        }
         return $this->render('vehicule/search.html.twig', [
+            'form' => $form,
             'vehicules' => $vehicule
         ]);
     }

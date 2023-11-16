@@ -3,6 +3,16 @@
 {% block title %}Vehicule{% endblock %}
 
 {% block body %}
+    <p class="d-inline-flex gap-1">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Afficher formulaire pour filtrer
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            {{ form(form) }}
+        </div>
+    </div>
     <h1>Vehicules disponibles</h1>
     {% for vehicule in vehicules %}
         <h2>{{ vehicule.titre }}</h2>
