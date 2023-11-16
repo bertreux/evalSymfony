@@ -29,7 +29,9 @@ class VehiculeController extends EvalAbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $vehicule = new Vehicule();
-        $form = $this->createForm(VehiculeType::class, $vehicule);
+        $form = $this->createForm(VehiculeType::class, $vehicule, [
+            'labelSubmit' => 'Créer'
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
@@ -49,6 +51,8 @@ class VehiculeController extends EvalAbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $this->showErrorFlash($vehicule);
             }
         }
 
@@ -71,7 +75,9 @@ class VehiculeController extends EvalAbstractController
     public function edit(Request $request, Vehicule $vehicule, EntityManagerInterface $entityManager): Response
     {
         $oldFile = $vehicule->getPhoto();
-        $form = $this->createForm(VehiculeType::class, $vehicule);
+        $form = $this->createForm(VehiculeType::class, $vehicule, [
+            'labelSubmit' => 'Modifier'
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
@@ -91,6 +97,8 @@ class VehiculeController extends EvalAbstractController
                 $entityManager->flush();
 
                 return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $this->showErrorFlash($vehicule);
             }
         }
 

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Membre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,6 +28,10 @@ class MembreType extends AbstractType
             ->add('statut', ChoiceType::class, [
                 'choices' => $options['statusChoice']
             ])
+            ->add('submit', SubmitType::class, [
+                'label' => $options['labelSubmit'],
+                'validate' => false,
+            ])
         ;
     }
 
@@ -34,7 +39,8 @@ class MembreType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Membre::class,
-            'statusChoice' => null
+            'statusChoice' => null,
+            'labelSubmit' => null
         ]);
     }
 }

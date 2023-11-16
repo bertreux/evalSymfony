@@ -22,6 +22,9 @@ class Commande
     #[Assert\NotBlank(
         message: "La date de début de réservation ne peut pas être vide"
     )]
+    #[Assert\Date(
+        message: "La date de début de réservation ne peut pas être vide"
+    )]
     private ?\DateTimeInterface $date_heur_depart = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

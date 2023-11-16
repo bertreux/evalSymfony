@@ -27,11 +27,7 @@ class HomeController extends EvalAbstractController
                 $this->session->set('date_fin', $commande->getDateHeurFin());
                 return $this->redirectToRoute('app_vehicule_search');
             }else{
-                $message = "";
-                foreach ($form->getErrors(true) as $key => $value){
-                    $message.=$value->getMessage()."<br>";
-                }
-                $this->addFlash('danger', $message);
+                $this->showErrorFlash($commande);
             }
         }
         return $this->render('home/index.html.twig', [

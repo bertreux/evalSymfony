@@ -91,8 +91,8 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $commandes;
 
     protected $roleValueAndLibel = [
-        'Admin' => 0,
-        'Membre' => 1
+        'ROLE_ADMIN' => 0,
+        'ROLE_USER' => 1
     ];
 
     public function __construct()

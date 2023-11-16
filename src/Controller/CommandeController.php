@@ -25,15 +25,21 @@ class CommandeController extends EvalAbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $commande = new Commande();
-        $form = $this->createForm(CommandeType::class, $commande);
+        $form = $this->createForm(CommandeType::class, $commande, [
+            'labelSubmit' => 'Créer'
+        ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $commande->setDateEnregistrement('now');
-            $entityManager->persist($commande);
-            $entityManager->flush();
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $commande->setDateEnregistrement('now');
+                $entityManager->persist($commande);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $this->showErrorFlash($commande);
+            }
         }
 
         return $this->render('commande/new.html.twig', [
@@ -53,13 +59,19 @@ class CommandeController extends EvalAbstractController
     #[Route('/admin/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CommandeType::class, $commande);
+        $form = $this->createForm(CommandeType::class, $commande, [
+            'labelSubmit' => 'Modifier'
+        ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $this->showErrorFlash($commande);
+            }
         }
 
         return $this->render('commande/edit.html.twig', [

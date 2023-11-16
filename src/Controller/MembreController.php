@@ -27,15 +27,20 @@ class MembreController extends EvalAbstractController
         $membre = new Membre();
         $form = $this->createForm(MembreType::class, $membre, [
             'statusChoice' => (new Membre())->getLibelStatusForForm(),
+            'labelSubmit' => 'Créer'
         ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $membre->setDateEnregistrement(new \DateTime('now'));
-            $entityManager->persist($membre);
-            $entityManager->flush();
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $membre->setDateEnregistrement(new \DateTime('now'));
+                $entityManager->persist($membre);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $this->showErrorFlash($membre);
+            }
         }
 
         return $this->render('membre/new.html.twig', [
@@ -55,13 +60,19 @@ class MembreController extends EvalAbstractController
     #[Route('/admin/{id}/edit', name: 'app_membre_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Membre $membre, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(MembreType::class, $membre);
+        $form = $this->createForm(MembreType::class, $membre, [
+            'labelSubmit' => 'Modifier'
+        ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+        if ($form->isSubmitted()) {
+            if($form->isValid()) {
+                $entityManager->flush();
 
-            return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                $this->showErrorFlash($membre);
+            }
         }
 
         return $this->render('membre/edit.html.twig', [
