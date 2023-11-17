@@ -54,7 +54,7 @@ class VehiculeController extends EvalAbstractController
 
                 return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
             }else{
-                $this->showErrorFlashWithArray($form->all());
+                $this->showErrorFlash($vehicule);
             }
         }
 
@@ -105,7 +105,7 @@ class VehiculeController extends EvalAbstractController
 
                 return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
             }else{
-                $this->showErrorFlashWithArray($form->all());
+                $this->showErrorFlash($vehicule);
             }
         }
 

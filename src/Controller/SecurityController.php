@@ -43,14 +43,14 @@ class SecurityController extends EvalAbstractController
     public function inscription(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $membre = new Membre();
+        $membre->setStatut(0);
         $form = $this->createForm(InscriptionType::class, $membre, []);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
             if($form->isValid()){
-                $membre->setDateEnregistrement(new \DateTime('now'))
-                    ->setStatut(0);
+                $membre->setDateEnregistrement(new \DateTime('now'));
 
                 $membre->setMdp(
                     $userPasswordHasher->hashPassword(
@@ -64,7 +64,7 @@ class SecurityController extends EvalAbstractController
                 $this->membreRepository->add($membre, true);
                 return $this->redirectToRoute('homepage');
             }else{
-                $this->showErrorFlashWithArray($form->all());
+                $this->showErrorFlash($membre);
             }
         }
 

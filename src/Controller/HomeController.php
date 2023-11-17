@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\Membre;
+use App\Entity\Vehicule;
 use App\Form\AccueilType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +17,8 @@ class HomeController extends EvalAbstractController
     public function index(Request $request): Response
     {
         $commande = new Commande();
+        $commande->setMembre(new Membre());
+        $commande->setVehicule(new Vehicule());
         $form = $this->createForm(AccueilType::class, $commande, []);
         $form->handleRequest($request);
         if($form->isSubmitted()){
@@ -23,7 +27,7 @@ class HomeController extends EvalAbstractController
                 $this->session->set('date_fin', $commande->getDateHeurFin());
                 return $this->redirectToRoute('app_vehicule_search');
             }else{
-                $this->showErrorFlashWithArray($form->all());
+                $this->showErrorFlash($commande);
             }
         }
         return $this->render('home/index.html.twig', [

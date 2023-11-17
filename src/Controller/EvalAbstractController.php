@@ -37,13 +37,10 @@ class EvalAbstractController extends AbstractController
         $this->validator = $validator;
     }
 
-    public function showErrorFlashWithArray($array){
+    public function showErrorFlash($entity){
         $message = "";
-        foreach ($array as $key => $value){
-            if(!$value->getErrors()->getForm() instanceof SubmitButton &&
-                $value->getErrors()->count() > 0){
-                $message .= $value->getErrors()->current()->getMessage() . "<br>";
-            }
+        foreach ($this->validator->validate($entity) as $key => $value){
+            $message.=$value->getMessage()."<br>";
         }
         $this->addFlash('danger', $message);
     }

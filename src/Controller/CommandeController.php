@@ -38,7 +38,7 @@ class CommandeController extends EvalAbstractController
 
                 return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
             }else{
-                $this->showErrorFlashWithArray($form->all());
+                $this->showErrorFlash($commande);
             }
         }
 
@@ -70,7 +70,7 @@ class CommandeController extends EvalAbstractController
 
                 return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
             }else{
-                $this->showErrorFlashWithArray($form->all());
+                $this->showErrorFlash($commande);
             }
         }
 
