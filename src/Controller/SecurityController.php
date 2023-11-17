@@ -32,11 +32,13 @@ class SecurityController extends EvalAbstractController
     }
 
     #[Route('/déconnexion', name: 'logout')]
-    public function logout(): Response
+    public function logout(Request $request): Response
     {
         $this->security->logout(false);
 
-        return $this->redirectToRoute('homepage');
+        $route = $request->headers->get('referer');
+
+        return $this->redirect($route);
     }
 
     #[Route('/inscription', name: 'app_insription')]
