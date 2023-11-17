@@ -22,11 +22,27 @@ class Commande
     #[Assert\NotBlank(
         message: "La date de début de réservation ne peut pas être vide",allowNull: false
     )]
+    #[Assert\LessThanOrEqual(
+        propertyPath: "date_heur_fin",
+        message: "La date de départ doit etre inferieur a la date de fin"
+    )]
+    #[Assert\GreaterThan(
+        value: 'now',
+        message: "La date de debut doit etre superieur a la date et heure actuelle"
+    )]
     private ?\DateTimeInterface $date_heur_depart = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(
         message: "La date de fin de réservation ne peut pas être vide",allowNull: false
+    )]
+    #[Assert\GreaterThanOrEqual(
+        propertyPath: "date_heur_depart",
+        message: "La date de fin doit etre superieur a la date de debut"
+    )]
+    #[Assert\GreaterThan(
+        value: 'now',
+        message: "La date de fin doit etre superieur a la date et heure actuelle"
     )]
     private ?\DateTimeInterface $date_heur_fin = null;
 

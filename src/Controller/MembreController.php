@@ -47,7 +47,7 @@ class MembreController extends EvalAbstractController
 
                 return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);
             }else{
-                $this->showErrorFlash($membre);
+                $this->showErrorFlashWithArray($form->all());
             }
         }
 
@@ -87,7 +87,7 @@ class MembreController extends EvalAbstractController
 
                 return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);
             }else{
-                $this->showErrorFlash($membre);
+                $this->showErrorFlashWithArray($form->all());
             }
         }
 

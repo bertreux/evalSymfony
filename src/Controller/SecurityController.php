@@ -64,7 +64,7 @@ class SecurityController extends EvalAbstractController
                 $this->membreRepository->add($membre, true);
                 return $this->redirectToRoute('homepage');
             }else{
-                $this->showErrorFlash($membre);
+                $this->showErrorFlashWithArray($form->all());
             }
         }
 

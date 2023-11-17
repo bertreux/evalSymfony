@@ -7,6 +7,9 @@ use App\Repository\MembreRepository;
 use App\Repository\VehiculeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormErrorIterator;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -34,10 +37,13 @@ class EvalAbstractController extends AbstractController
         $this->validator = $validator;
     }
 
-    public function showErrorFlash($entity){
+    public function showErrorFlashWithArray($array){
         $message = "";
-        foreach ($this->validator->validate($entity) as $key => $value){
-            $message.=$value->getMessage()."<br>";
+        foreach ($array as $key => $value){
+            if(!$value->getErrors()->getForm() instanceof SubmitButton &&
+                $value->getErrors()->count() > 0){
+                $message .= $value->getErrors()->current()->getMessage() . "<br>";
+            }
         }
         $this->addFlash('danger', $message);
     }
