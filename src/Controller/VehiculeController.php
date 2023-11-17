@@ -20,6 +20,9 @@ class VehiculeController extends EvalAbstractController
     #[Route('/admin', name: 'app_vehicule_index', methods: ['GET'])]
     public function index(VehiculeRepository $vehiculeRepository): Response
     {
+        if($this->session->has('idVehiculeConnexion')){
+            $this->session->remove('idVehiculeConnexion');
+        }
         return $this->render('vehicule/index.html.twig', [
             'vehicules' => $vehiculeRepository->findAll(),
         ]);
@@ -168,6 +171,7 @@ class VehiculeController extends EvalAbstractController
     #[Route('/{id}/reservation', name: 'app_reservation')]
     public function reservation(Vehicule $vehicule)
     {
+        $this->session->set('idVehiculeConnexion', $vehicule->getId());
         return $this->render('reservation/index.html.twig', [
             'vehicules' => $vehicule,
             'dateDeb' => $this->session->has('date_deb') ? $this->session->get('date_deb') : new \DateTime('now'),

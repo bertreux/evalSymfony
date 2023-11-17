@@ -16,6 +16,9 @@ class HomeController extends EvalAbstractController
     #[Route('/', name: 'homepage')]
     public function index(Request $request): Response
     {
+        if($this->session->has('idVehiculeConnexion')){
+            $this->session->remove('idVehiculeConnexion');
+        }
         $commande = new Commande();
         $commande->setMembre(new Membre());
         $commande->setVehicule(new Vehicule());

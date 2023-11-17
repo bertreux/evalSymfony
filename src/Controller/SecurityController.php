@@ -15,6 +15,11 @@ class SecurityController extends EvalAbstractController
     #[Route('/connexion', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
+        $urlVehiculeConnexion =
+            $this->session->has('idVehiculeConnexion') ?
+                "/vehicule/".$this->session->get('idVehiculeConnexion')."/reservation/" :
+                null;
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         if(!is_null($error)){
@@ -28,6 +33,7 @@ class SecurityController extends EvalAbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
+            'urlVehiculeConnexion' => $urlVehiculeConnexion
         ]);
     }
 
@@ -64,7 +70,11 @@ class SecurityController extends EvalAbstractController
                 $this->security->login($membre);
 
                 $this->membreRepository->add($membre, true);
-                return $this->redirectToRoute('homepage');
+                if($this->session->has('idVehiculeConnexion')){
+                    return $this->redirectToRoute('app_reservation', ['id'=>$this->session->get('idVehiculeConnexion')]);
+                }else{
+                    return $this->redirectToRoute('homepage');
+                }
             }else{
                 $this->showErrorFlash($membre);
             }
