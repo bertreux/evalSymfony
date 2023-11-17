@@ -24,6 +24,7 @@ class HomeController extends EvalAbstractController
         $commande->setVehicule(new Vehicule());
         $form = $this->createForm(AccueilType::class, $commande, []);
         $form->handleRequest($request);
+
         if($form->isSubmitted()){
             if($form->isValid()){
                 $this->session->set('date_deb', $commande->getDateHeurDepart());

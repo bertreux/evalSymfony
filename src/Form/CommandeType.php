@@ -15,10 +15,10 @@ class CommandeType extends AbstractType
     {
         $builder
             ->add('date_heur_depart', DateTimeType::class, [
-                'date_widget' => 'single_text'
+                'widget' => 'single_text',
             ])
             ->add('date_heur_fin', DateTimeType::class, [
-                'date_widget' => 'single_text'
+                'widget' => 'single_text',
             ])
             ->add('membre')
             ->add('vehicule')

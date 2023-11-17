@@ -73,7 +73,7 @@ class Commande
         return $this->date_heur_depart;
     }
 
-    public function setDateHeurDepart(\DateTimeInterface $date_heur_depart): static
+    public function setDateHeurDepart(?\DateTimeInterface $date_heur_depart): static
     {
         $this->date_heur_depart = $date_heur_depart;
 
@@ -85,7 +85,7 @@ class Commande
         return $this->date_heur_fin;
     }
 
-    public function setDateHeurFin(\DateTimeInterface $date_heur_fin): static
+    public function setDateHeurFin(?\DateTimeInterface $date_heur_fin): static
     {
         $this->date_heur_fin = $date_heur_fin;
 

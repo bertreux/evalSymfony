@@ -35,7 +35,8 @@ class FiltreSearchType extends AbstractType
             ])
             ->add('prix_journalier', NumberType::class, [
                 'label' => 'Le prix journalié est de ',
-                'required' => false
+                'required' => false,
+                'html5' => true
             ])
             ->add('orderprix_journalier', ChoiceType::class, [
                 'label' => 'Trier les résultats avec les prix : ',
