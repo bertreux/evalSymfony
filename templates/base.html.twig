@@ -47,13 +47,15 @@
             </ul>
         </nav>
     </header>
-    <div class="mt-3 ms-3 me-3 mb-3">
+    <div class="content pt-3 ps-3 pe-3 pb-3">
         {% for info in app.flashes('danger') %}
             <div class="alert alert-danger">
                 {{ info|raw }}
             </div>
         {% endfor %}
-        {% block body %}{% endblock %}
+        <div class="content-without-alert">
+            {% block body %}{% endblock %}
+        </div>
     </div>
     </body>
 </html>

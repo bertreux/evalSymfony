@@ -49,4 +49,22 @@ class ProfilController extends EvalAbstractController
             'form' => $form
         ]);
     }
+
+    #[Route('/profil/reservation', name: 'app_profil_reservation')]
+    public function reservation(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        if($this->getUser() == null){
+            return $this->redirectToRoute('homepage');
+        }
+
+        $membre = $this->membreRepository->find($this->getUser()->getId());
+
+        $reservationOfUser = $this->commandeRepository->findBy([
+            'membre' => $membre,
+        ]);
+
+        return $this->render('profil/reservation.html.twig', [
+            'commandes' => $reservationOfUser,
+        ]);
+    }
 }

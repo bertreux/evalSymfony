@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commandes{% endblock %}
+
+{% block body %}
+    <h1>Toutes vos Commandes</h1>
+    {% for commande in commandes %}
+        <h2>{{ comm }}</h2>
+        <img class="imageIndex" src="{{ asset( vehicule.photo ) }}" alt="image voiture">
+        <p>{{ vehicule.description }}</p>
+        <p>{{ vehicule.prixJournalier }}€ / {{ vehicule.marque }}</p>
+        <a href="{{ path('app_reservation', {'id': vehicule.id}) }}" class="btn btn-success">Voire l'offre</a>
+        <hr>
+    {% endfor %}
+    {% if vehicules is empty %}
+        <p>Aucune commande n'a été réalisé avec votre compte</p>
+    {% endif %}
+{% endblock %}

@@ -2,8 +2,13 @@
 
 {% block title %}Accueil{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/accueil.css') }}"/>
+{% endblock %}
+
+
 {% block body %}
-    <h1 class="mb-5">Accueil</h1>
     {{ form_start(form) }}
     <div class="row">
         <div class="col-2"></div>

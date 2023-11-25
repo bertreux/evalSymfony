@@ -1,0 +1,42 @@
+/* Réinitialisation des marges et des rembourrages pour assurer une apparence cohérente sur tous les navigateurs */
+body, h1, h2, h3, p, form {
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    /* Styles pour votre div content */
+    background-image: url('../images/fond_accueil.jpg');
+    background-size: cover; /* Ajuste la taille de l'image pour couvrir toute la div */
+    background-position: center; /* Centre l'image de fond */
+    background-attachment: fixed; /* Fixe l'image de fond lors du défilement */
+    min-height: calc(100vh - 56px); /* Ajuste la hauteur minimale pour couvrir toute la page moins la hauteur de l'en-tête */
+    color: #fff; /* Couleur du texte à l'intérieur de la div content, à ajuster selon vos besoins */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: calc(100vh - 250px);
+}
+
+.champFormulaire {
+    background-color: rgba(192, 192, 192, 0.7); /* Gris transparent */
+    padding: 15px;
+    border: 1px solid #000; /* Bordure noire */
+    border-radius: 5px; /* Coins arrondis */
+    min-height: 140px;
+    max-height: 160px;
+}
+
+#accueil_submit{
+    margin-top: 15%
+}

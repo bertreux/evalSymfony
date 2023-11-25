@@ -2,10 +2,6 @@
     text-align: center;
 }
 
-#accueil_submit{
-    margin-top: 20%
-}
-
 #menuBack{
     border-right: 1px solid black;
 }
@@ -21,10 +17,25 @@
 }
 
 .imageIndex {
-    /*width: 300px;*/
-    height: 200px;
+    width: 200px;
 }
 
 .btnRetour{
     margin-bottom: 15px;
+}
+
+.alert{
+    z-index: 10;
+}
+
+.menu-profil{
+    margin-top:20px;
+    height: 50px;
+    font-size: larger !important;
+    font-weight: bold !important;
+}
+
+.imageReservation{
+    width: 500px;
+    margin-bottom: 10px;
 }

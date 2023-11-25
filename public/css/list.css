@@ -1,0 +1,37 @@
+.content {
+    background: dimgray;
+}
+
+.list_item {
+    background: white;
+    border-radius: 10px;
+    padding: 20px; /* Ajoute un espace intérieur pour plus de lisibilité */
+    width: 80%; /* Ajuste la largeur du conteneur principal */
+    max-width: 1000px; /* Limite la largeur maximale */
+    height: fit-content;
+}
+
+.btn-filter {
+    margin-top: 30px;
+    height: 100px;
+    width: 100%; /* Ajuste la largeur du bouton à 100% du conteneur parent */
+    font-size: 24px; /* Ajuste la taille de la police pour un meilleur ajustement */
+}
+
+.font-weight-bold{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-without-alert{
+    display: flex;
+    justify-content: center; /* Centre le contenu horizontalement */
+    min-height: 100vh; /* Ajuste la hauteur minimale à 100% de la vue */
+}
