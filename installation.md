@@ -31,7 +31,7 @@
 
    Cette créer les tables selon les scripts dans `./migrations`.
 
-3**Lancer les Fixtures:**
+4**Lancer les Fixtures:**
 
    ```
    php bin/console doctrine:fixtures:load
@@ -39,25 +39,25 @@
 
    Cette commande va remplir la base de données avec des données aléatoires.
 
-4**Demarrer le serveur Symfony:**
+5**Demarrer le serveur Symfony:**
 
    ```
    symfony server:start
    ```
 
-Cette commande va lancer le serveur sur le lien `http://127.0.0.1:8000` dans votre navigateur.
+   Cette commande va lancer le serveur sur le lien `http://127.0.0.1:8000` dans votre navigateur.
 
-5**Connexion admin:**
+6**Connexion admin:**
 
-Utiliser l'email et le mot de passe admin après avoir lancé les Fixtures pour se connecter en admin:
+   Utiliser l'email et le mot de passe admin après avoir lancé les Fixtures pour se connecter en admin:
 
-- Email: admin@gmail.com
-- Password: eval
+   - Email: admin@gmail.com
+   - Password: eval
 
-6**Arret du serveur symfony:**
+7**Arret du serveur symfony:**
 
    ```
    symfony server:start
    ```
 
-Cette commande va arrêter le serveur Symfony
+   Cette commande va arrêter le serveur Symfony
