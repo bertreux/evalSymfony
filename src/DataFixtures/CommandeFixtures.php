@@ -19,7 +19,7 @@ class CommandeFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < 100; $i++) {
 
-            $vehicule = $this->getReference("vehicule_" . $faker->numberBetween(0, 5));
+            $vehicule = $this->getReference("vehicule_" . $faker->numberBetween(0, 9));
             $membre = $this->getReference("membre_" . $faker->numberBetween(0, 5));
 
             $startDate = $faker->dateTimeThisDecade;

@@ -12,10 +12,10 @@ class VehiculeFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
-        for($i = 0 ; $i <= 5 ; $i++){
+        for($i = 0 ; $i <= 9 ; $i++){
             $vehicule = new Vehicule();
             $vehicule->setDateEnregistrement(new \DateTime('now'))
-                    ->setPhoto($faker->imageUrl())
+                    ->setPhoto('images/voiture'.($i+1).'.jpg')
                     ->setDescription($faker->paragraph)
                     ->setMarque($faker->word)
                     ->setTitre($faker->sentence)
