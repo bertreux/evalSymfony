@@ -38,6 +38,7 @@
                 <td>
                     <a href="{{ path('app_membre_show', {'id': membre.id}) }}" class="btn btn-info">Voire</a>
                     <a href="{{ path('app_membre_edit', {'id': membre.id}) }}" class="btn btn-warning">Modifier</a>
+                    {{ include('membre/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% endfor %}
