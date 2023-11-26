@@ -44,7 +44,7 @@ class MembreController extends EvalAbstractController
                 );
                 $entityManager->persist($membre);
                 $entityManager->flush();
-
+                $this->addFlash('success', 'Le membre a été créé');
                 return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);
             }else{
                 $this->showErrorFlash($membre);
@@ -84,7 +84,7 @@ class MembreController extends EvalAbstractController
                     )
                 );
                 $entityManager->flush();
-
+                $this->addFlash('success', 'Le membre a été modifié');
                 return $this->redirectToRoute('app_membre_index', [], Response::HTTP_SEE_OTHER);
             }else{
                 $this->showErrorFlash($membre);

@@ -43,6 +43,7 @@ class ProfilController extends EvalAbstractController
                 $this->security->login($membre);
 
                 $this->membreRepository->add($membre, true);
+                $this->addFlash('success', 'Les informations du compte ont bien été modifiées');
                 return $this->redirectToRoute('app_profil');
             }else{
                 $this->showErrorFlash($membre);

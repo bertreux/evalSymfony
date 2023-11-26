@@ -53,6 +53,11 @@
                 {{ info|raw }}
             </div>
         {% endfor %}
+        {% for info in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ info|raw }}
+            </div>
+        {% endfor %}
         <div class="content-without-alert">
             {% block body %}{% endblock %}
         </div>

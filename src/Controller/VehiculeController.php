@@ -54,7 +54,7 @@ class VehiculeController extends EvalAbstractController
                 $vehicule->setDateEnregistrement(new \DateTime('now'));
                 $entityManager->persist($vehicule);
                 $entityManager->flush();
-
+                $this->addFlash('success', 'Le véhicule a bien été créé');
                 return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
             }else{
                 $this->showErrorFlash($vehicule);
@@ -105,9 +105,10 @@ class VehiculeController extends EvalAbstractController
                 $fileSystem->copy($file->getPathname(), 'images/' . $fileName);
                 $vehicule->setPhoto('images/'.$fileName);
                 $entityManager->flush();
-
+                $this->addFlash('success', 'Le véhicule a bien été modifié');
                 return $this->redirectToRoute('app_vehicule_index', [], Response::HTTP_SEE_OTHER);
             }else{
+                $vehicule->setPhoto($oldFile);
                 $this->showErrorFlash($vehicule);
             }
         }
@@ -201,6 +202,15 @@ class VehiculeController extends EvalAbstractController
             ->setDateHeurDepart($this->session->get('date_deb'))
             ->setDateHeurFin($this->session->get('date_fin'));
         $this->commandeRepository->add($commande, true);
+        $this->addFlash('success', 'La commande a bien été créée');
+        $this->sendMail($commande->getMembre()->getEmail(), 'Bienvenue sur RENT A CAR', 'reservation', [
+            'nomMembre' => $commande->getMembre()->getNom(),
+            'prenomMembre' => $commande->getMembre()->getPrenom(),
+            'dateEnregistrement' => $commande->getMembre()->getDateEnregistrement(),
+            'nomVoiture' => $commande->getVehicule()->getTitre(),
+            'dateDebut' => $commande->getDateHeurDepart(),
+            'datFin' => $commande->getDateHeurFin()
+        ]);
         return $this->redirectToRoute('homepage');
     }
 

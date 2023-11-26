@@ -35,7 +35,7 @@ class CommandeController extends EvalAbstractController
                 $commande->setDateEnregistrement(new \DateTime('now'));
                 $entityManager->persist($commande);
                 $entityManager->flush();
-
+                $this->addFlash('success', 'La commande a bien été créée');
                 return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
             }else{
                 $this->showErrorFlash($commande);
@@ -67,7 +67,7 @@ class CommandeController extends EvalAbstractController
         if ($form->isSubmitted()) {
             if($form->isValid()) {
                 $entityManager->flush();
-
+                $this->addFlash('success', 'La commande a bien été modifiée');
                 return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
             }else{
                 $this->showErrorFlash($commande);

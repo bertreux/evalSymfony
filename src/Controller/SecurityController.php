@@ -70,6 +70,12 @@ class SecurityController extends EvalAbstractController
                 $this->security->login($membre);
 
                 $this->membreRepository->add($membre, true);
+                $this->addFlash('success', 'Le compte a bien été créé');
+                $this->sendMail($membre->getEmail(), 'Bienvenue sur RENT A CAR', 'bienvenue', [
+                    'nomMembre' => $membre->getNom(),
+                    'prenomMembre' => $membre->getPrenom(),
+                    'dateEnregistrement' => $membre->getDateEnregistrement()
+                ]);
                 if($this->session->has('idVehiculeConnexion')){
                     return $this->redirectToRoute('app_reservation', ['id'=>$this->session->get('idVehiculeConnexion')]);
                 }else{
