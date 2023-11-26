@@ -5,14 +5,11 @@ namespace App\Controller;
 use App\Repository\CommandeRepository;
 use App\Repository\MembreRepository;
 use App\Repository\VehiculeRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormErrorIterator;
-use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Mailer\Mailer;
-use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class EvalAbstractController extends AbstractController
@@ -31,7 +28,7 @@ class EvalAbstractController extends AbstractController
                                 RequestStack       $requestStack,
                                 Security           $security,
                                 ValidatorInterface $validator,
-                                Mailer             $mailer)
+                                MailerInterface    $mailer)
     {
         $this->membreRepository = $membreRepository;
         $this->vehiculeRepository = $vehiculeRepository;
@@ -51,10 +48,9 @@ class EvalAbstractController extends AbstractController
     }
 
     public function sendMail($to, $objet, $htmlTemplate, $context){
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from('ne-pas-reponde@gmail.com')
-//            ->to($to)
-            ->to('bertreux.stanislas@gmail.com')
+            ->to($to)
             ->subject($objet)
             ->htmlTemplate('emails/'.$htmlTemplate.'.html.twig')
             ->context($context);
