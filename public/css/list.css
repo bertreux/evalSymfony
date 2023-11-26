@@ -1,21 +1,25 @@
-.content {
-    background: dimgray;
+.bg-color-tr {
+    background-color: rgba(192, 192, 192, 0.7);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: calc(100vh - 56px);
 }
 
 .list_item {
     background: white;
     border-radius: 10px;
-    padding: 20px; /* Ajoute un espace intérieur pour plus de lisibilité */
-    width: 80%; /* Ajuste la largeur du conteneur principal */
-    max-width: 1500px; /* Limite la largeur maximale */
+    padding: 20px;
+    width: 80%;
+    max-width: 1500px;
     height: fit-content;
 }
 
 .btn-filter {
     margin-top: 30px;
     height: 100px;
-    width: 100%; /* Ajuste la largeur du bouton à 100% du conteneur parent */
-    font-size: 24px; /* Ajuste la taille de la police pour un meilleur ajustement */
+    width: 100%;
+    font-size: 24px;
 }
 
 .font-weight-bold{
@@ -36,6 +40,6 @@
 
 .content-without-alert{
     display: flex;
-    justify-content: center; /* Centre le contenu horizontalement */
-    min-height: 100vh; /* Ajuste la hauteur minimale à 100% de la vue */
+    justify-content: center;
+    min-height: 100vh;
 }

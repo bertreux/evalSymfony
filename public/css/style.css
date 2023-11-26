@@ -43,3 +43,11 @@
 .btnModif{
     margin-bottom: 10px;
 }
+
+.content {
+    background-image: url('../images/fond_accueil.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: calc(100vh - 56px);
+}
