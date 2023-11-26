@@ -7,7 +7,7 @@
     border-radius: 10px;
     padding: 20px; /* Ajoute un espace intérieur pour plus de lisibilité */
     width: 80%; /* Ajuste la largeur du conteneur principal */
-    max-width: 1000px; /* Limite la largeur maximale */
+    max-width: 1500px; /* Limite la largeur maximale */
     height: fit-content;
 }
 
