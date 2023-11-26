@@ -13,7 +13,7 @@ Follow these steps to set up and run the Symfony project.
 
 1**Install Dependencies:**
 
-    ```bash
+    ```
     composer install
     ```
 
@@ -23,7 +23,7 @@ Follow these steps to set up and run the Symfony project.
 
 3**Load Fixtures:**
 
-    ```bash
+    ```
     php bin/console doctrine:fixtures:load
     ```
 
@@ -31,7 +31,7 @@ Follow these steps to set up and run the Symfony project.
 
 4**Start the Symfony Server:**
 
-    ```bash
+    ```
     symfony server:start
     ```
 
@@ -41,5 +41,5 @@ Follow these steps to set up and run the Symfony project.
 
    Use the following credentials to log in:
 
-    - **Email:** admin@gmail.com
-    - **Password:** eval
+    - Email: admin@gmail.com
+    - Password: eval
