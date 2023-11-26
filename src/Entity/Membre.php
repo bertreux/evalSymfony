@@ -139,7 +139,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->pseudo;
     }
 
-    public function setPseudo(string $pseudo): static
+    public function setPseudo(?string $pseudo): static
     {
         $this->pseudo = $pseudo;
 
@@ -151,7 +151,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->mdp;
     }
 
-    public function setMdp(string $mdp): static
+    public function setMdp(?string $mdp): static
     {
         $this->mdp = $mdp;
 
@@ -163,7 +163,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(?string $nom): static
     {
         $this->nom = $nom;
 
@@ -175,7 +175,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->prenom;
     }
 
-    public function setPrenom(string $prenom): static
+    public function setPrenom(?string $prenom): static
     {
         $this->prenom = $prenom;
 
@@ -187,7 +187,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): static
+    public function setEmail(?string $email): static
     {
         $this->email = $email;
 
@@ -199,7 +199,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->civilite;
     }
 
-    public function setCivilite(string $civilite): static
+    public function setCivilite(?string $civilite): static
     {
         $this->civilite = $civilite;
 
@@ -234,7 +234,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->statut;
     }
 
-    public function setStatut(int $statut): static
+    public function setStatut(?int $statut): static
     {
         $this->statut = $statut;
 

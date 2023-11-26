@@ -28,6 +28,7 @@ class ProfilController extends EvalAbstractController
         }
 
         $membre = $this->membreRepository->find($this->getUser()->getId());
+
         $form = $this->createForm(ProfilType::class, $membre, []);
         $form->handleRequest($request);
         if($form->isSubmitted()){
@@ -43,6 +44,8 @@ class ProfilController extends EvalAbstractController
 
                 $this->membreRepository->add($membre, true);
                 return $this->redirectToRoute('app_profil');
+            }else{
+                $this->showErrorFlash($membre);
             }
         }
         return $this->render('profil/information.html.twig', [

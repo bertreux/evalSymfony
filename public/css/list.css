@@ -30,6 +30,10 @@
     align-items: center;
 }
 
+.btnWidth100 {
+    width: 185px !important;
+}
+
 .content-without-alert{
     display: flex;
     justify-content: center; /* Centre le contenu horizontalement */

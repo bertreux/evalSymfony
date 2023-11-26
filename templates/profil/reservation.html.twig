@@ -40,5 +40,6 @@
         {% if commandes is empty %}
             <p>Aucune commande n'a été réalisée avec votre compte.</p>
         {% endif %}
+        <a href="{{ path('app_profil') }}" class="btn btn-secondary btnRetour btnWidth100">Retour au menu profil</a>
     </div>
 {% endblock %}

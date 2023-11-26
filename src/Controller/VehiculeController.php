@@ -136,6 +136,10 @@ class VehiculeController extends EvalAbstractController
     #[Route('/search', name: 'app_vehicule_search')]
     public function search(Request $request): Response
     {
+        if(!$this->session->has('date_deb') or !$this->session->has('date_fin')){
+            return $this->redirectToRoute('homepage');
+        }
+
         $form = $this->createForm(FiltreSearchType::class, null, []);
         $form->handleRequest($request);
         if($form->isSubmitted()){
@@ -171,6 +175,10 @@ class VehiculeController extends EvalAbstractController
     #[Route('/{id}/reservation', name: 'app_reservation')]
     public function reservation(Vehicule $vehicule)
     {
+        if(!$this->session->has('date_deb') or !$this->session->has('date_fin')){
+            return $this->redirectToRoute('homepage');
+        }
+
         $this->session->set('idVehiculeConnexion', $vehicule->getId());
         return $this->render('reservation/index.html.twig', [
             'vehicules' => $vehicule,
@@ -182,6 +190,10 @@ class VehiculeController extends EvalAbstractController
     #[Route('/{id}/reservation/create', name: 'app_reservation_create')]
     public function createReservation(Vehicule $vehicule)
     {
+        if(!$this->session->has('date_deb') or !$this->session->has('date_fin')){
+            return $this->redirectToRoute('homepage');
+        }
+
         $commande = new Commande();
         $commande->setDateEnregistrement(new \DateTime('now'))
             ->setMembre($this->getUser())
