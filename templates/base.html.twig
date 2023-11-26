@@ -21,27 +21,27 @@
         <nav class="container navbar navbar-expand navbar-dark">
             <a href="{{ path('homepage') }}" class="navbar-brand">RENT A CAR</a>
             <ul class="navbar-nav">
-                <li class="navbar-item">
+                <li class="navbar-item me-4">
                     <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
                 </li>
                 {% if app.user == null %}
                     <li class="navbar-item">
                         <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
                     </li>
-                    <li class="navbar-item">
+                    <li class="navbar-item me-4">
                         <a class="nav-link" href="{{ path('app_insription') }}">Inscription</a>
                     </li>
                 {% else %}
+                    <li class="navbar-item me-4">
+                        <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
+                    </li>
                     {% if app.user.statut == 0 %}
-                        <li class="navbar-item">
+                        <li class="navbar-item me-4">
                             <a class="nav-link" href="{{ path('app_vehicule_index') }}">Gestion</a>
                         </li>
                     {% endif %}
                     <li class="navbar-item justify-content-end">
                         <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
-                    </li>
-                    <li class="navbar-item">
-                        <a class="nav-link" href="{{ path('app_profil') }}">Profil</a>
                     </li>
                 {% endif %}
             </ul>
