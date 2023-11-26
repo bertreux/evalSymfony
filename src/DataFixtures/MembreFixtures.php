@@ -26,14 +26,15 @@ class MembreFixtures extends Fixture
                 ->setDateEnregistrement(new \DateTime('now'))
                 ->setNom($faker->name())
                 ->setPrenom($faker->firstName)
-                ->setCivilite($faker->randomElement(['m', 'f']))
-                ->setEmail($faker->email);
+                ->setCivilite($faker->randomElement(['m', 'f']));
             if($i === 0){
-                $membre->setStatut(0);
+                $membre->setStatut(0)
+                    ->setEmail('admin@gmail.com');
             }else {
-                $membre->setStatut(1);
+                $membre->setStatut(1)
+                    ->setEmail($faker->email);
             }
-            $hashedPassword = $this->hasher->hashPassword($membre , "demo");
+            $hashedPassword = $this->hasher->hashPassword($membre , "eval");
             $membre->setMdp($hashedPassword);
             $manager->persist($membre);
             $manager->flush();
