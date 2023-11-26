@@ -1,45 +1,55 @@
-# Installation Guide
+# Guide d'installation
 
-Follow these steps to set up and run the Symfony project.
+   Suiver ces étapes pour l'initialisation de ce projet Symfony.
 
-## Prerequisites
 
-- PHP (>= 8.1)
-- Composer
-- Symfony CLI
-- MySQL or another database system
+
+## Prérequis
+
+   - PHP (>= 8.1)
+   - Composer
+   - Symfony CLI
+   - MySQL or another database system
 
 ## Installation
 
-1**Install Dependencies:**
+1**Installer les dépendances :**
 
-    ```
-    composer install
-    ```
+   ```
+   composer install
+   ```
 
-2**Install Dependencies:**
+2**Configure `.env`:**
 
-   Make sure to configure your database connection in the `.env` file before running the fixtures.
+   Assurer vous de bien configurer le lien vers votre base de données que vous devez créer dans le `.env` au paramètre `DATABASE_URL`.
 
-3**Load Fixtures:**
+3**Lancer les Fixtures:**
 
-    ```
-    php bin/console doctrine:fixtures:load
-    ```
+   ```
+   php bin/console doctrine:fixtures:load
+   ```
 
-   This command will populate the database with sample data.
+Cette commande va remplir la base de données avec des données aléatoires.
 
-4**Start the Symfony Server:**
+4**Demarrer le serveur Symfony:**
 
-    ```
-    symfony server:start
-    ```
+   ```
+   symfony server:start
+   ```
 
-   This will start the Symfony development server. Visit `http://127.0.0.1:8000` in your browser to access the application.
+Cette commande va lancer le serveur sur le lien `http://127.0.0.1:8000` dans votre navigateur.
 
-5**Login Credentials:**
+5**Connexion admin:**
 
-   Use the following credentials to log in:
+Utiliser l'email et le mot de passe admin après avoir lancé les Fixtures pour se connecter en admin:
 
-    - Email: admin@gmail.com
-    - Password: eval
+- Email: admin@gmail.com
+- Password: eval
+
+6**Arret du serveur symfony:**
+
+   ```
+   symfony server:start
+   ```
+
+Cette commande va arrêter le serveur Symfony
