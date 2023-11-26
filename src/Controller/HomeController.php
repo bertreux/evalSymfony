@@ -6,7 +6,6 @@ use App\Entity\Commande;
 use App\Entity\Membre;
 use App\Entity\Vehicule;
 use App\Form\AccueilType;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

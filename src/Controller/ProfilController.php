@@ -14,6 +14,7 @@ class ProfilController extends EvalAbstractController
     public function index(): Response
     {
         if($this->getUser() == null){
+            $this->addFlash('danger', 'Vous n\'êtes plus connecter');
             return $this->redirectToRoute('homepage');
         }
 
@@ -24,6 +25,7 @@ class ProfilController extends EvalAbstractController
     public function information(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         if($this->getUser() == null){
+            $this->addFlash('danger', 'Vous n\'êtes plus connecter');
             return $this->redirectToRoute('homepage');
         }
 
@@ -55,9 +57,10 @@ class ProfilController extends EvalAbstractController
     }
 
     #[Route('/profil/reservation', name: 'app_profil_reservation')]
-    public function reservation(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function reservation(): Response
     {
         if($this->getUser() == null){
+            $this->addFlash('danger', 'Vous n\'êtes plus connecter');
             return $this->redirectToRoute('homepage');
         }
 

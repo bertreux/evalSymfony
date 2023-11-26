@@ -138,6 +138,7 @@ class VehiculeController extends EvalAbstractController
     public function search(Request $request): Response
     {
         if(!$this->session->has('date_deb') or !$this->session->has('date_fin')){
+            $this->addFlash('danger', 'Vous avez perdu la session');
             return $this->redirectToRoute('homepage');
         }
 
@@ -177,6 +178,7 @@ class VehiculeController extends EvalAbstractController
     public function reservation(Vehicule $vehicule)
     {
         if(!$this->session->has('date_deb') or !$this->session->has('date_fin')){
+            $this->addFlash('danger', 'Vous avez perdu la session');
             return $this->redirectToRoute('homepage');
         }
 
@@ -192,6 +194,7 @@ class VehiculeController extends EvalAbstractController
     public function createReservation(Vehicule $vehicule)
     {
         if(!$this->session->has('date_deb') or !$this->session->has('date_fin')){
+            $this->addFlash('danger', 'Vous avez perdu la session');
             return $this->redirectToRoute('homepage');
         }
 
