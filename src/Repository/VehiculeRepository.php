@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Vehicule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,16 +41,38 @@ class VehiculeRepository extends ServiceEntityRepository
     }
 
     public function findAllVehiculeFreeQuery($date_deb, $date_fin){
+        $expr = $this->getEntityManager()->getExpressionBuilder();
+
+        $vehiculeReserver = $this->createQueryBuilder('v')
+            ->select('v.id')
+            ->leftJoin('v.commandes', 'c')
+            ->andWhere($expr->andX(
+                'c.date_heur_depart <= :dateFin',
+                'c.date_heur_fin >= :dateDebut'
+            ))
+            ->orWhere($expr->andX(
+                'c.date_heur_depart >= :dateDebut',
+                'c.date_heur_fin <= :dateFin'
+            ))
+            ->orWhere($expr->andX(
+                'c.date_heur_depart <= :dateDebut',
+                'c.date_heur_fin >= :dateFin'
+            ))
+            ->setParameter('dateDebut', $date_deb)
+            ->setParameter('dateFin', $date_fin)
+            ->distinct()
+            ->getQuery()
+            ->getResult();
+
         $queryBuilder = $this->createQueryBuilder('v');
 
+        if($vehiculeReserver == []){
+            return $queryBuilder;
+        }
+
         $queryBuilder
-            ->leftJoin('v.commandes', 'c')
-            ->andWhere('c.id IS NULL OR (:dateDebut < c.date_heur_depart AND 
-            :dateFin < c.date_heur_depart) 
-            OR (:dateDebut > c.date_heur_fin AND 
-            :dateFin > c.date_heur_fin)')
-            ->setParameter('dateDebut', $date_deb)
-            ->setParameter('dateFin', $date_fin);
+            ->andWhere('v.id NOT IN (:reserver)')
+            ->setParameter('reserver', $vehiculeReserver);
 
         return $queryBuilder;
     }
