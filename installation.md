@@ -23,13 +23,21 @@
 
    Assurer vous de bien configurer le lien vers votre base de données que vous devez créer dans le `.env` au paramètre `DATABASE_URL`.
 
+3**Lancer les migrations:**
+
+   ```
+   php bin/console doctrine:migrations:migrate
+   ```
+
+   Cette créer les tables selon les scripts dans `./migrations`.
+
 3**Lancer les Fixtures:**
 
    ```
    php bin/console doctrine:fixtures:load
    ```
 
-Cette commande va remplir la base de données avec des données aléatoires.
+   Cette commande va remplir la base de données avec des données aléatoires.
 
 4**Demarrer le serveur Symfony:**
 
