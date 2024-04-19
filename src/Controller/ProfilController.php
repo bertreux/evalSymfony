@@ -30,18 +30,19 @@ class ProfilController extends EvalAbstractController
         }
 
         $membre = $this->membreRepository->find($this->getUser()->getId());
-
+        $old_mdp = $membre->getMdp();
         $form = $this->createForm(ProfilType::class, $membre, []);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             if($form->isValid()){
-                $membre->setMdp(
-                    $userPasswordHasher->hashPassword(
+                if($membre->getMdp() != $old_mdp){
+                    $membre->setMdp(
+                        $userPasswordHasher->hashPassword(
                         $membre,
                         $membre->getMdp()
-                    )
-                );
-
+                        )
+                    );
+                }
                 $this->security->login($membre);
 
                 $this->membreRepository->add($membre, true);

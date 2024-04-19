@@ -22,13 +22,13 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 255)]
     #[Assert\NotBlank(
         message: "Le pseudo ne peut pas etre vide",allowNull: false
     )]
     #[Assert\Length(
         min : 3,
-        max : 20,
+        max : 255,
         minMessage:"Le pseudo doit contenir au minimum {{ limit }} caractères",
         maxMessage:"Le pseudo doit contenir au maximum {{ limit }} caractères",
     )]
@@ -46,25 +46,25 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $mdp = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 255)]
     #[Assert\NotBlank(
         message: "Le nom ne peut pas etre vide",allowNull: false
     )]
     #[Assert\Length(
         min : 3,
-        max : 20,
+        max : 255,
         minMessage:"Le nom doit contenir au minimum {{ limit }} caractères",
         maxMessage:"Le nom doit contenir au maximum {{ limit }} caractères",
     )]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 255)]
     #[Assert\NotBlank(
         message: "Le prenom ne peut pas etre vide",allowNull: false
     )]
     #[Assert\Length(
         min : 3,
-        max : 20,
+        max : 255,
         minMessage:"Le prenom doit contenir au minimum {{ limit }} caractères",
         maxMessage:"Le prenom doit contenir au maximum {{ limit }} caractères",
     )]

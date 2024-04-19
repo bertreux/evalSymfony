@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Vehicule;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use PHPUnit\Exception;
 
 /**
  * @extends ServiceEntityRepository<Vehicule>
@@ -64,36 +65,59 @@ class VehiculeRepository extends ServiceEntityRepository
             ->getResult();
 
         $queryBuilder = $this->createQueryBuilder('v');
-
         if($vehiculeReserver == []){
-            return $queryBuilder;
+            return [$queryBuilder, [['id' => 0]]];
         }
 
         $queryBuilder
             ->andWhere('v.id NOT IN (:reserver)')
             ->setParameter('reserver', $vehiculeReserver);
 
-        return $queryBuilder;
+        return [$queryBuilder, $vehiculeReserver];
     }
 
     public function findAllVehiculeFree($date_deb, $date_fin){
-        $queryBuilder = $this->findAllVehiculeFreeQuery($date_deb, $date_fin);
+        $queryBuilder = $this->findAllVehiculeFreeQuery($date_deb, $date_fin)[0];
 
         return $queryBuilder->getQuery()->getResult();
     }
 
     public function findVehiculeByDatesAndFiltre($data, $date_deb, $date_fin){
         $queryBuilder = $this->findAllVehiculeFreeQuery($date_deb, $date_fin);
+        $vehiculeReserver = $queryBuilder[1];
+        $queryBuilder = $queryBuilder[0];
+        $query = $queryBuilder->getQuery();
+        $sql = $query->getSQL();
         foreach ($data as $key => $value){
             if(str_starts_with($key, 'order')){
                 $key = str_replace('order', '', $key);
-                $queryBuilder->orderBy('v.'.$key, $value);
+                $sql .= ' ORDER BY v0_.'.$key.' '.$value;
             } else if($value != null){
-                $queryBuilder->andWhere('upper(v.'.$key.') LIKE upper(:'.$key.')')
-                    ->setParameter(':'.$key, '%' . $value . '%');
+                if(!str_contains($sql, '?') and !str_contains($sql, 'WHERE')){
+                    $sql .= ' WHERE';
+                }else{
+                    $sql .= ' AND';
+                }
+                $sql .= ' v0_.'.$key.' LIKE '.$value;
             }
         }
-        return $queryBuilder->getQuery()->getResult();
+        $stringVehiculeReserver = '';
+        foreach ($vehiculeReserver as $vehicule){
+            $stringVehiculeReserver .= $vehicule['id'].', ';
+        }
+        $stringVehiculeReserver = substr($stringVehiculeReserver, 0, -2);
+        $sql = str_replace('vehicule', 'App\Entity\Vehicule', $sql);
+        $sql = str_replace('?', $stringVehiculeReserver, $sql);
+        try {
+            $results = $this->getEntityManager()->createQuery($sql)->getResult();
+        } catch (\Exception $e) {
+            $results = [];
+        }
+        $vehicules = [];
+        foreach ($results as $result) {
+            $vehicules[] = $this->getEntityManager()->getRepository('App\Entity\Vehicule')->find($result['id_0']);
+        }
+        return $vehicules;
     }
 
 }

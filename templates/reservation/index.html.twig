@@ -32,7 +32,7 @@
                 <a href="{{path('app_login') }}" class="btn btn-primary btnRetour">Connexion</a>
                 <a href="{{ path('app_insription') }}" class="btn btn-primary btnRetour">Inscription</a>
             {% else %}
-                <p>Bonjour {{ app.user.nom }} {{ app.user.prenom }}</p>
+                <p>Bonjour {{ app.user.pseudo | raw }}</p>
                 <a href="{{ path('app_reservation_create', {'id': vehicules.id}) }}" class="btn btn-success btnRetour text-center">Réserver</a>
             {% endif %}
         </div>

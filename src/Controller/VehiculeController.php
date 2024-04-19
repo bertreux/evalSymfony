@@ -39,12 +39,7 @@ class VehiculeController extends EvalAbstractController
 
         if($form->isSubmitted()){
             if($form['photo']->getData() != null){
-                $allowedExtensions = ['jpg', 'jpeg', 'png'];
                 $file = $form['photo']->getData();
-                $originalExtension = $file->getClientOriginalExtension();
-                if (!in_array($originalExtension, $allowedExtensions)) {
-                    $form->get('photo')->addError(new FormError("L'image doit avoir comme extension jpg, png ou jpeg"));
-                }
             }
             if ($form->isValid()) {;
                 $fileSystem = new Filesystem();
@@ -119,7 +114,7 @@ class VehiculeController extends EvalAbstractController
         ]);
     }
 
-    #[Route('/admin/{id}/show', name: 'app_vehicule_delete', methods: ['POST'])]
+    #[Route('admin/{id}', name: 'app_vehicule_delete', methods: ['POST'])]
     public function delete(Request $request, Vehicule $vehicule, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$vehicule->getId(), $request->request->get('_token'))) {
@@ -212,7 +207,7 @@ class VehiculeController extends EvalAbstractController
             'dateEnregistrement' => $commande->getMembre()->getDateEnregistrement(),
             'nomVoiture' => $commande->getVehicule()->getTitre(),
             'dateDebut' => $commande->getDateHeurDepart(),
-            'datFin' => $commande->getDateHeurFin()
+            'dateFin' => $commande->getDateHeurFin()
         ]);
         return $this->redirectToRoute('homepage');
     }
